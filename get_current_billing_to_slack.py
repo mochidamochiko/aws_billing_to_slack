@@ -2,12 +2,14 @@
 # coding: utf-8
 
 import boto3
+from boto3.session import Session
 import datetime
 
 import slackweb
 from config import *
 
-cloudwatch = boto3.client('cloudwatch', region_name='us-east-1')
+session = Session(region_name='us-east-1', profile_name='default')
+cloudwatch = session.client ('cloudwatch')
 
 response = cloudwatch.get_metric_statistics(
     Namespace = 'AWS/Billing',
