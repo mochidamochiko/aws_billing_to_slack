@@ -1,0 +1,2 @@
+# -*- coding: utf-8 -*-
+slack_incomming_webhook_url = "slack_webhook_url"
