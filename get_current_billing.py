@@ -19,7 +19,8 @@ response = cloudwatch.get_metric_statistics(
             "Value": "USD"
         }
     ],
-    StartTime = datetime.datetime.utcnow() - datetime.timedelta(seconds=3600),
+    # StartTime = datetime.datetime.utcnow() - datetime.timedelta(seconds=3600),
+    StartTime = datetime.datetime.utcnow() - datetime.timedelta(hours = 4),
     EndTime = datetime.datetime.utcnow(),
     Period = 3600,
     Statistics = ['Maximum']
