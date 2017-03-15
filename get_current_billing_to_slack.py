@@ -27,12 +27,13 @@ response = cloudwatch.get_metric_statistics(
 )
 
 bill = response['Datapoints'][0]['Maximum']
-date = response['Datapoints'][0]['Timestamp'].strftime('%Y/%m/%d %H:%M:%S (UTC)')
+metrics_date = response['Datapoints'][0]['Timestamp']
+metrics_date_str = metrics_date.strftime('%Y/%m/%d %H:%M:%S (UTC)')
 
 slack = slackweb.Slack(url=slack_incomming_webhook_url)
 
 slack.notify(
-    text="*account-name* : $" + str(bill) + " at " + date + " :moneybag:",
+    text="*account-name* : $" + str(bill) + " at " + metrics_date_str + " :moneybag:",
     username="AWS-Billing-Notify",
     icon_emoji=":moneybag:",
     mrkdwn=True
