@@ -43,11 +43,15 @@ bill_per_day = bill / days_of_metrics_date.days
 # 月末予想
 predict_monthly_bill = bill_per_day * days_of_month.days
 
+# アカウント名取得
+iam = session.client('iam')
+response = iam.list_account_aliases()
+aws_account_name = response['AccountAliases'][0]
 
 slack = slackweb.Slack(url=slack_incomming_webhook_url)
 
 slack.notify(
-    text="*account-name* : $" + str(bill) + " at " + metrics_date_str + ", end-of-month forcast : $" + str(round(predict_monthly_bill,2)) + " :moneybag:",
+    text="*" + aws_account_name + "* : $" + str(bill) + " at " + metrics_date_str + ", end-of-month forcast : $" + str(round(predict_monthly_bill,2)) + " :moneybag:",
     username="AWS-Billing-Notify",
     icon_emoji=":moneybag:",
     mrkdwn=True
